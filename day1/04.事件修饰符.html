@@ -12,16 +12,29 @@
             height: 150px;
             background-color: darkcyan;
         }
+        .outer{
+            padding: 40px;
+            background:pink;
+        }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <!-- <div class="inner" @click='divHandler'>
+        <!-- <div class="inner" @click.capture='divHandler'>
             <input type="button" value="poke me!" @click.stop='buttonHandler'>
         </div> -->
-        <a href="http://www.baidu.com" @click.prevent="linkClick">Poke me</a>
+        <!-- <a href="http://www.baidu.com" @click.prevent="linkClick">Poke me</a> -->
 
+        <!-- <div class="inner" @click.self='divHandler'>
+            <input type="button" value="poke me!" @click.stop='buttonHandler'>
+        </div> -->
+        <!-- <a href="http://www.baidu.com" @click.prevent.once="linkClick">Poke me</a> -->
+        <div class="outer" @click='OuterHandler'>
+            <div class="inner" @click.self='divHandler'>
+                <input type="button" value="poke me!" @click='buttonHandler'>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -37,6 +50,9 @@
                 },
                 linkClick(){
                     console.log('You poke LINK!')
+                },
+                OuterHandler(){
+                    console.log('You poke OUTER')
                 }
             }
         });

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red{
+            color:red;
+        }
+        .thin{
+            font-weight: 200;
+        }
+        .italic{
+            font-style: italic;
+        }
+        .active{
+            letter-spacing: 0.5em;
+        }
+    </style>
+    <script src="lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <h1 class="red thin">It's quite huge!</h1> -->
+        <!-- <h1 :class="['thin', 'italic']">It's quite huge!</h1> -->
+        <h1 :class="['thin', 'italic']">It's quite huge!</h1>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>
