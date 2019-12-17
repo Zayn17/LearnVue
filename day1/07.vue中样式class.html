@@ -27,13 +27,20 @@
     <div id="app">
         <!-- <h1 class="red thin">It's quite huge!</h1> -->
         <!-- <h1 :class="['thin', 'italic']">It's quite huge!</h1> -->
-        <h1 :class="['thin', 'italic']">It's quite huge!</h1>
+        <!-- <h1 :class="['thin', 'italic',flag?'active':'']">It's quite huge!</h1> -->
+        <!-- <h1 :class="['thin', 'italic',{'active':flag}]">It's quite huge!</h1> -->
+        <!-- <h1 :class="{red:true, italic:true, thin:true}">It's quite huge!</h1> -->
+        <h1 :class="classObj">It's quite huge!</h1>
+    
     </div>
 
     <script>
         var vm = new Vue({
             el: '#app',
-            data: {},
+            data: {
+                flag: true,
+                classObj:{red:true, italic:true, thin:true}
+            },
             methods: {}
         });
     </script>
