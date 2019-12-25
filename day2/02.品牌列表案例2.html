@@ -18,11 +18,12 @@
             </div>
             <div class="panel-body form-inline">
                 <label for="">Id: <input type="text" class="form-control" v-model="id"></label>
-                <label for="">Name: <input type="text" class="form-control" v-model="name"></label>
+                <label for="">Name: <input type="text" class="form-control" v-model="name" @keyup.enter="add"></label>
+                <!-- <label for="">Name: <input type="text" class="form-control" v-model="name" @keyup.f2="add"></label> -->
                 <input type="button" value="添加" class="btn btn-primary" @click="add">
                 <label for="">
                     搜索关键字
-                    <input type="text" class="form-control" v-model="keywords">
+                    <input id="search" type="text" class="form-control" v-model="keywords" v-focus v-color="'blue'">
                 </label>
             </div>
         </div>
@@ -46,25 +47,45 @@
         </table>
     </div>
     <div id="app2">
-        <p>{{dt | dataFormat}}</p>
+        <h2 v-color="'pink'" v-fontweight="900" v-fontsize="100">{{dt | dataFormat}}</h2>
     </div>
     <script>
         Vue.filter('dataFormat',function(dataStr, pattern = ""){
             var dt = new Date(dataStr)
             var y = dt.getFullYear()
-            var m = dt.getMonth() + 1
-            var d = dt.getDate()
+            var m = (dt.getMonth() + 1).toString().padStart(2,'0')
+            var d = dt.getDate().toString().padStart(2, '0')
             //return `${y}-${m}-${d}`
             if(pattern.toLowerCase() === 'yyyy-mm-dd'){
                 return `${y}-${m}-${d}`
             } else{
-                var hh = dt.getHours()
-                var mm = dt.getMinutes()
-                var ss = dt.getSeconds()
+                var hh = dt.getHours().toString().padStart(2,'0')
+                var mm = dt.getMinutes().toString().padStart(2,'0')
+                var ss = dt.getSeconds().toString().padStart(2,'0')
                 return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
             }
         })
 
+        // 自定义全局键盘码
+        Vue.config.keyCodes.f2 = 113
+
+        Vue.directive('focus', {
+            bind:function(el){
+                // el.focus()
+            },
+            inserted: function(el){
+                el.focus()
+            },
+            updated: function(el){}
+        })
+
+        Vue.directive('color',{
+            bind: function(el,binding){
+                el.style.color = binding.value
+                // console.log(binding.value)
+                // console.log(binding.expression)
+            }
+        })
         var vm = new Vue({
             el: '#app',
             data: {
@@ -128,21 +149,34 @@
                 dataFormat:function(dataStr, pattern = ''){
                     var dt = new Date(dataStr)
                      var y = dt.getFullYear()
-                    var m = dt.getMonth() + 1
-                    var d = dt.getDate()
+                    var m = (dt.getMonth() + 1).toString().padStart(2,'0')
+                    var d = dt.getDate().toString().padStart(2, '0')
                     //return `${y}-${m}-${d}`
                     if(pattern.toLowerCase() === 'yyyy-mm-dd'){
                         return `${y}-${m}-${d}`
                     } else{
-                    var hh = dt.getHours()
-                    var mm = dt.getMinutes()
-                    var ss = dt.getSeconds()
+                    var hh = dt.getHours().toString().padStart(2,'0')
+                    var mm = dt.getMinutes().toString().padStart(2,'0')
+                    var ss = dt.getSeconds().toString().padStart(2,'0')
                     return `${y}-${m}-${d} ${hh}:${mm}:${ss} ~~~~~`
                     }
+                }
+            },
+            directives:{
+                'fontweight':{
+                    bind:function(el, binding){
+                        el.style.fontWeight = binding.value
+                        console.log(binding.value)
+                        console.log(el)
+                    }
+                },
+                'fontsize':function(el, binding){
+                    el.style.fontSize = parseInt(binding.value) + 'px'
                 }
             }
         })
 
+        //document.getElementById('search').focus()
     </script>
 </body>
 
